@@ -2,9 +2,11 @@ uniform float uTime;
 uniform vec4 uResolution;
 uniform sampler2D uMatcap;
 uniform vec2 uMouse;
+uniform float uMouseSphere;
 uniform float uFirstProgress;
 uniform float uSecondProgress;
 uniform float uThirdProgress;
+uniform float uCamZPos;
 
 varying vec2 vUv;
 
@@ -86,7 +88,7 @@ float sdf(vec3 p) {
     float finalBox = mix(preFinalBox, cylinder, uSecondProgress);
     float afterFinalBox = mix(finalBox, link, uThirdProgress);
 
-    float mouseSphere = sdSphere(p - vec3(uMouse * uResolution.wz * 2., 0.), 0.2);
+    float mouseSphere = sdSphere(p - vec3(uMouse * uResolution.wz * 2., 0.), uMouseSphere);
 
     return smin(afterFinalBox, mouseSphere, 0.4);
 }
@@ -105,7 +107,7 @@ void main() {
     vec3 bg = mix(vec3(0.25, 0.0, 0.0), vec3(.05), dist);
     bg = vec3(0.035, 0.0035, 0.21);
     vec2 newUv = (vUv - vec2(0.5)) * uResolution.zw + vec2(0.5);
-    vec3 camPos = vec3(0., 0., 2.);
+    vec3 camPos = vec3(0., 0., uCamZPos);
     vec3 ray = normalize(vec3((vUv - vec2(0.5)) * uResolution.wz, -1));
 
     vec3 rayPos = camPos;
@@ -129,9 +131,9 @@ void main() {
         color = vec3(diff);
         color = texture2D(uMatcap, matcapUv).rgb;
 
-        float fresnel = pow(.1 + dot(ray, normal), .3);
+        // float fresnel = pow(.1 + dot(ray, normal), .3);
         // color = mix(color, bg, fresnel);
-        color = mix(bg, color, fresnel);
+        // color = mix(bg, color, fresnel);
 
     }
     gl_FragColor = vec4(color, 1.);

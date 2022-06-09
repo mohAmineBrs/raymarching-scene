@@ -47,56 +47,43 @@ var material = new THREE.ShaderMaterial({
       uMatcap: {value: matcapTexture},
       uResolution: {value: new THREE.Vector4()},
       uMouse: {value: new THREE.Vector2(0, 0)},
+      uMouseSphere: {value: 0.2},
       uFirstProgress: {value: 0},
       uSecondProgress: {value: 0},
-      uThirdProgress: {value: 0}
+      uThirdProgress: {value: 0},
+      uCamZPos: {value: 2}
+
     }
 });
 
 const mesh = new THREE.Mesh(geometry, material);
 scene.add(mesh);
 
+/**
+ * Media Query
+ */
+ const smallMediaQuery = window.matchMedia('only screen and (max-width: 600px)');
 
-    // Clicking Event
-    var count = 0
-    var clickWit = [];
-    window.onclick = () => {
-        count=parseInt(count)+parseInt(1);
 
-        if(material.uniforms.uFirstProgress.value < 1) {
-            gsap.to(material.uniforms.uFirstProgress, {
-                duration: 0.5,
-                value: "+=0.2",
-                ease: "power2.inOut",
-            })
+ if (smallMediaQuery.matches) {
+    material.uniforms.uCamZPos.value = 4
 
-            gsap.to(material.uniforms.uFirstProgress, {
-                duration: 0.5,
-                value: 0,
-                delay: 0.5,
-                ease: "power2.inOut"
-            })            
-        }
+ }
 
-        // clickWit.push( setTimeout(function(){
-        //     clickWit.shift();
-        // }, 5000) );
-    
-        // if (clickWit.length == 5) {
-        //     // clear all the timeouts
-        //     for (let x in clickWit) { clearTimeout(clickWit[x]); }
-        //     clickWit = [];
-        //     callback();
-        // }
 
-}
-// const callback = function(){
-//     gsap.to(material.uniforms.uFirstProgress, {
-//         duration: 0.5,
-//         value: 1,
-//         ease: "power2.inOut"
-//     })
-// }
+ if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+    material.uniforms.uMouseSphere.value = 0
+
+  } else{
+    material.uniforms.uMouseSphere.value = 0.2
+
+  }
+
+  window.addEventListener('load', function () {
+    window.scrollTo(0, 0);
+  })
+
+
 /**
  * Raycaster
  */
