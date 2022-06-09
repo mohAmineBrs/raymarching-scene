@@ -1,0 +1,91 @@
+*
+{
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body
+{
+    overflow-x: hidden;
+    height: 4000px;
+    font-family: 'Abril Fatface', cursive;
+
+}
+.webgl
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    outline: none;
+    z-index: -1 !important;
+}
+.htmlContent {
+    width: 100%;
+    color: #ffffff;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+.htmlContent .myList {
+    width: 60%;
+    height: 160px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+}
+.htmlContent ul {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    list-style: none;
+}
+.htmlContent ul li {
+    font-size: 11rem;
+    padding: 0;
+    line-height: 9rem;
+    margin-bottom: 30px;
+    letter-spacing: 4px;
+    /* border: 1px solid blue; */
+    overflow: hidden;
+    user-select: none;
+    opacity: 0.9;
+}
+.scrollDown {
+    width: 120px;
+    height: 120px;
+    position: absolute;
+    bottom: 20px;
+    right: 40px;
+}
+.scrollDown svg {
+    fill: currentColor;
+    width: 100%;
+    height: 100%;
+    max-width: 66vmin;
+    transform-origin: center;
+    /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
+    font-family: Helvetica, sans-serif;
+    animation: rotateScrollDown 20s linear infinite;
+    letter-spacing: 1.3px;
+  }
+  @keyframes rotateScrollDown {
+      from {transform: rotate(0deg)}
+      to {transform: rotate(360deg)}
+
+  }
+  @media only screen and (max-width: 992px) {
+    .htmlContent .myList {
+        width: 85%;
+    }
+    .htmlContent ul li {
+        font-size: 5rem
+    }
+  }
